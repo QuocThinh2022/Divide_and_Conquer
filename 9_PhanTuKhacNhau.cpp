@@ -11,30 +11,42 @@ typedef vector<string> vstr;
 /* ---< Function Prototype >--- */
 /* ---< Function >--- */
 int solve(int a[], int b[], int l, int r){
-	int ans = r+1;
-	while (l <= r){
-		int m = (l+r)/2;
-		if (a[m] != b[m]){
-			ans = m;
-			r = m-1;
-		}
-		else
-			l = m+1;
-	}
-	return ans;
+    int ans = r+1;
+    while (l <= r){
+        int m = (l+r)/2;
+        if (a[m] != b[m]){
+            ans = m;
+            r = m-1;
+        }
+        else
+            l = m+1;
+    }
+    return ans;
 }
+
+int solve2(int a[], int b[], int l, int r, int res){
+    if (l > r)
+        return res;
+    int m = (l+r)/2;
+    if (a[m] != b[m]){
+        res = m;
+        return solve2(a, b, l, m-1, res);
+    }
+    return solve2(a, b, m+1, r, res);
+}
+
 /* ---< Function Main >--- */
 int main (){
     FAST_IO; /* ---< FAST_IO >--- */ // If "FASTIO" is used, don't use "endl" because "endl" is slower than "\n" and disable "FASTIO"
     /* ---< code >--- */
-	int n; cin >> n;
-	int a[n], b[n-1];
-	for (auto &it : a)
-		cin >> it;
-	for (auto &it : b)
-		cin >> it;
-	cout << solve(a, b, 0, n-1)+1;
-	/* ---< endcode >--- */
+    int n; cin >> n;
+    int a[n], b[n-1];
+    for (auto &it : a)
+        cin >> it;
+    for (auto &it : b)
+        cin >> it;
+//    cout << solve(a, b, 0, n-1)+1;
+    cout << solve2(a, b, 0, n-1, n-1)+1;
+    /* ---< endcode >--- */
     return (0-0);
 }
-
